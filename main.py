@@ -7,8 +7,7 @@ rightAngle = 24
 
 
 servo1 = pyb.Servo(1)
-servo1.angle(7)
-time.sleep(1)
+
 
 tim = pyb.Timer(2, freq = 50)
 motorPin1 = tim.channel(3, pyb.Timer.PWM, pin=pyb.Pin('P4'))
@@ -22,13 +21,26 @@ motorPin2.pulse_width_percent(100)
 time.sleep(1)
 
 def drive(x):
-    if x > 0:
+    if x > 0 and x!=0:
         motorPin1.pulse_width_percent(x)
         motorPin2.pulse_width_percent(0)
-    elif x < 0:
+    elif x < 0 and x!=0:
         motorPin1.pulse_width_percent(0)
         motorPin2.pulse_width_percent(-x)
     else:
         motorPin1.pulse_width_percent(100)
         motorPin2.pulse_width_percent(100)
 
+def turnAngle(angle):
+    if angle > -14 and angle < 24:
+        servo1.angle(angle)
+
+drive(10)
+time.sleep(1)
+drive(10)
+time.sleep(1)
+
+turnAngle(10)
+time.sleep(1)
+drive(0)
+time.sleep(1)
